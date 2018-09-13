@@ -2,21 +2,19 @@ import json
 import os
 import hashlib
 
-
+blockchain_dir = os.curdir + '/blockchain/'
 
 def get_hash(file_name):
-
-    blockchain_dir = os.curdir + '/blockchain/'
-
     file = open(blockchain_dir + file_name, 'rb').read()
     return hashlib.md5(file).hexdigest()
 
-
-def check_integrity():
-
-    blockchain_dir = os.curdir + '/blockchain/'
+def get_files():
     files = os.listdir(blockchain_dir)
     files = sorted([int(i) for i in files])
+    return files
+
+def check_integrity():
+    files = get_files()
 
     for file in files[1:]:
         f = open(blockchain_dir + str(file))
@@ -37,11 +35,7 @@ def check_integrity():
 
 
 def write_block(name, amount, to_whom, prev_hash=''):
-
-    blockchain_dir = os.curdir + '/blockchain/'
-
-    files = os.listdir(blockchain_dir)
-    files = sorted([int(i) for i in files])
+    files = get_files()
 
     last_file = files[-1]
 

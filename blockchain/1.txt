@@ -1,0 +1,6 @@
+{
+    "name": "alex",
+    "amount": 10,
+    "to_whow": "ivan ivanov",
+    "hash": ""
+}

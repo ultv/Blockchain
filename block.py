@@ -12,6 +12,30 @@ def get_hash(file_name):
     return hashlib.md5(file).hexdigest()
 
 
+def check_integrity():
+
+    blockchain_dir = os.curdir + '/blockchain/'
+    files = os.listdir(blockchain_dir)
+    files = sorted([int(i) for i in files])
+
+    for file in files[1:]:
+        f = open(blockchain_dir + str(file))
+        h = json.load(f)['hash']
+
+        prev_file = str(file - 1)
+
+        actual_hash = get_hash(prev_file)
+
+        if h == actual_hash:
+            res = 'Ok'
+        else:
+            res = 'Corrupted'
+
+        print('Block {} is: {}'.format(prev_file, res))
+
+
+
+
 def write_block(name, amount, to_whom, prev_hash=''):
 
     blockchain_dir = os.curdir + '/blockchain/'
@@ -35,7 +59,8 @@ def write_block(name, amount, to_whom, prev_hash=''):
 
 
 def main():
-    write_block(name='oleg', amount=5, to_whom='vika')
+    #write_block(name='oleg', amount=5, to_whom='vika')
+    check_integrity()
 
 
 

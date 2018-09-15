@@ -26,3 +26,16 @@
 </form>
 
 {% endblock %}
+
+
+{% block checking %}
+
+    {% for res in results %}
+        <div class="result">
+
+            block {{ res['block'] }} : {{ res['result'] }}
+
+        </div>
+    {% endfor %}
+
+{% endblock %}
